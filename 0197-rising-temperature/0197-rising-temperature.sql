@@ -1,6 +1,9 @@
-# Write your MySQL query statement below
-SELECT w1.Id 
-FROM Weather w1
-JOIN Weather W2
-ON DATEDIFF(W1.recordDate,W2.recordDate) = 1
-WHERE w1.temperature > w2.temperature;
+WITH CTE AS(SELECT *,
+LAG(recordDate) OVER(ORDER BY recordDate)prev_recordDate,
+LAG(temperature) OVER(ORDER BY recordDate)prev_temperature
+FROM Weather)
+
+SELECT id FROM CTE
+WHERE temperature > prev_temperature 
+AND DATEDIFF(recordDate,prev_recordDate) =1;
+
