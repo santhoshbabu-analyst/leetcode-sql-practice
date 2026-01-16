@@ -5,6 +5,6 @@ LEFT JOIN Employees m
 ON e.manager_id = m.employee_id 
 WHERE e.salary < 30000 
 AND e. manager_id IS not null
-AND M.employee_id IS NULL
+AND m.employee_id IS NULL
 ORDER BY employee_id;
 
