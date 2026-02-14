@@ -1,9 +1,16 @@
-WITH CTE AS(SELECT *,
-LAG(recordDate) OVER(ORDER BY recordDate)prev_recordDate,
-LAG(temperature) OVER(ORDER BY recordDate)prev_temperature
-FROM Weather)
+WITH cte as(
 
-SELECT id FROM CTE
-WHERE temperature > prev_temperature 
-AND DATEDIFF(recordDate,prev_recordDate) =1;
+SELECT
+    id,
+    recordDate,
+    temperature,
+    LAG(recordDate) OVER(ORDER BY recordDate)prev_date,
+    LAG(temperature) OVER(ORDER BY recordDate)prev_temp
+FROM Weather 
+)
 
+SELECT 
+    id
+FROM cte
+WHERE temperature > prev_temp
+AND DATEDIFF(recordDate,prev_date) = 1;
