@@ -1,9 +1,10 @@
-# Write your MySQL query statement below
-SELECT m1.machine_id,ROUND(AVG(m2.timestamp - m1.timestamp),3)processing_time 
-FROM Activity m1
-JOIN Activity m2
-ON m1.machine_id = m2.machine_id 
-AND  m1.process_id = m2.process_id  
-AND m1.activity_type = "start"   
-AND m2.activity_type = "end"
-GROUP BY m1.machine_id;
+SELECT 
+    a.machine_id,
+    ROUND(AVG(a1.timestamp - a.timestamp),3)processing_time 
+FROM Activity a
+JOIN Activity a1
+ON a.machine_id = a1.machine_id 
+AND a.process_id = a1.process_id 
+AND a.activity_type = "start" AND a1.activity_type = "end"
+GROUP BY a.machine_id
+ORDER BY a.machine_id;
