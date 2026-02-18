@@ -1,10 +1,11 @@
-WITH cte AS (
+WITH CTE as(
     SELECT *,
            COUNT(*) OVER (PARTITION BY employee_id) AS dept_count
-    FROM Employee
-)
+    FROM Employee)
 
-SELECT employee_id, department_id
+SELECT 
+    employee_id,
+    department_id 
 FROM cte
-WHERE primary_flag = 'Y'
-   OR dept_count = 1;
+WHERE dept_count = 1 OR primary_flag = "Y";
+
